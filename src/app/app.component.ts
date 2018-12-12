@@ -1,16 +1,15 @@
-import { Component } from "@angular/core";
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate
-} from "@angular/animations";
+import { Component, OnInit } from '@angular/core';
+import { ClientService, Message } from './client.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/scan'
+
+// import { scan } from 'rxjs/operators';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
   animations: [
     trigger("openClose", [
       state(
@@ -26,23 +25,37 @@ import {
         })
       ),
       transition("open => closed", [
-        
+
         style({ "transform-origin": "right bottom 0", }),
-        animate("1500ms cubic-bezier(0,0.1,0.5,1)")]),
+        animate("500ms cubic-bezier(0,0.1,0.5,1)")]),
 
       transition("closed => open", [
         // style({ transform: "scale(-0.1,-0.5)" }),
         style({ transform: "scale(0)", "transform-origin": "right bottom 0", }),
         animate("1000ms cubic-bezier(0.5,0.1,0.5,1)")
       ])
-    ])
+    ]),
+
   ]
 })
-export class AppComponent {
-  title = "chat-plugin";
-  isOpen = false;
+export class AppComponent implements OnInit {
+  isOpen: Boolean;
+  isShowTime: Boolean;
+  messages: Observable<Message[]>;
+  constructor(public clientService: ClientService) { }
 
-  toogle() {
-    this.isOpen = !this.isOpen;
+  ngOnInit() {
+    this.isOpen = false;
+    this.isShowTime = false;
+    this.messages = this.clientService.conversation.asObservable().scan((acc, val) => acc.concat(val));
   }
+
+  sendMessage(e) {
+    console.log((<HTMLInputElement>document.getElementById('_58al')).value);
+    this.clientService.converse(e.target.value);
+    (<HTMLInputElement>document.getElementById('_58al')).value = '';
+ 
+  }
+
+
 }

@@ -1,4 +1,4 @@
-<div tabindex="0" role="button" style="cursor: pointer; outline: none;" class="nik-chat" (click)="toogle()">
+<div tabindex="0" role="button" style="cursor: pointer; outline: none;" class="chat" (click)="isOpen = !isOpen">
   <svg width="60px" height="60px" viewBox="0 0 60 60">
     <svg x="0" y="0" width="60" height="60">
       <defs>
@@ -23,8 +23,86 @@
   </svg>
 </div>
 
+<div class="chat-screen" [@openClose]="isOpen ? 'open' : 'closed'">
 
-<div class="chat-area" [@openClose]="isOpen ? 'open' : 'closed'">
+  <div class="_f_0">
+    <div class="_1qd1" (click)="isOpen = !isOpen">
+      <div class="_2t-5 _4bqf" tabindex="0" role="button"><svg width="10px" height="10px" viewBox="0 0 14 14">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-419.000000, -413.000000)">
+              <g transform="translate(164.000000, 396.000000)">
+                <g>
+                  <g transform="translate(250.000000, 12.000000)">
+                    <g>
+                      <g>
+                        <rect opacity="0.200000003" x="0" y="0" width="24" height="24"></rect>
+                        <g transform="translate(4.000000, 4.000000)" fill="#000000">
+                          <rect transform="translate(8.000000, 8.000000) rotate(45.000000) translate(-8.000000, -8.000000) "
+                            x="7" y="-1" width="2" height="18" rx="1"></rect>
+                          <rect transform="translate(8.000000, 8.000000) rotate(135.000000) translate(-8.000000, -8.000000) "
+                            x="7" y="-1" width="2" height="18" rx="1"></rect>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg></div>
+    </div>
+    <div class="_hov">
+      <div class="_how _4ik4 _4ik5" style="-webkit-line-clamp: 1;">Nikhil Savaliya {{messageText | json}}</div>
+      <div class="_hox _4ik4 _4ik5" style="-webkit-line-clamp: 1;">Typically replies instantly</div>
+    </div>
+    <div class="_1qd3">
+      <div class="_4bqf _17l7" tabindex="0" role="button"><svg width="24px" height="24px" viewBox="0 0 24 24">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-413.000000, -56.000000)">
+              <g transform="translate(90.000000, 44.000000)">
+                <g>
+                  <g>
+                    <g transform="translate(324.000000, 13.000000)">
+                      <circle fill="#FFFFFF" stroke="#b53f31" cx="11" cy="11" r="11"></circle>
+                      <path d="M11,9 L12,9 L12,17 L13,17 L13,17.5 L9,17.5 L9,17 L10,17 L10,9.5 L9,9.5 L9,9 L11,9 Z M11,4.5 C11.8284271,4.5 12.5,5.17157288 12.5,6 C12.5,6.82842712 11.8284271,7.5 11,7.5 C10.1715729,7.5 9.5,6.82842712 9.5,6 C9.5,5.17157288 10.1715729,4.5 11,4.5 Z"
+                        fill="#b53f31"></path>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg></div>
+    </div>
+  </div>
+  <div class="chat-content" style="overflow-Y: hidden; height: 380;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <div class="chat-detail">
+      <div class="message-chat-box" *ngFor="let message of messages | async">
+        <div class="message-box sender" [ngClass]="{'sender' : message.sentBy === 'user', 'reciver' : message.sentBy === 'admin'}">
+          <p class="message-content" (click)="isShowTime = !isShowTime">{{message.content}}</p>
+          <p class="time" *ngIf="isShowTime">time</p>
+        </div>
+      </div>
+     
+    </div>
+  </div>
+  <div class="_336a">
+    <div class="_4zbw">
+      <div class="_4fwe"><label class="_58ak _3ct8">
+          <input class="_58al" id="_58al" type="text" placeholder="Type a message..." (keyup.enter)="sendMessage($event)">
+
+          <!-- <input [(ngModel)]="messageText" (keyup.enter)="sendMessage($event)" type="text"> -->
+        </label>
+      </div>
+      <div class="_kmd">
+        <div class="_64mk _2ez5 _6a"><input accept="application/msword, application/pdf, text/csv, text/plain, image/*, video/*"
+            class="_2ez6" multiple="" name="attachment[]" title="Add Files" type="file"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="chat-area" [@openClose]="isOpen ? 'open' : 'closed'">
 
   <div class="_f_0">
     <div class="_1qd1" (click)="toogle()">
@@ -178,4 +256,4 @@
     </div>
   </div>
 
-</div>
+</div> -->
