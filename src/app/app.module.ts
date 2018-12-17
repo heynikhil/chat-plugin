@@ -2,15 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { ClientService } from "./client.service";
 import { HttpClientModule } from '@angular/common/http'; 
-import { SocketService } from "./socket.service";
-
+import { ChatService } from './chat.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule],
-  providers: [ClientService,SocketService],
+  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule,FormsModule],
+  providers: [ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

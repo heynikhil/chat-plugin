@@ -1,29 +1,23 @@
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const socketIO = require('socket.io');
+let express = require('express')
+let app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
+let http = require('http');
+let server = http.Server(app);
 
-app.get('/', (req, res) => { res.send("Welcome to paradisextrade") })
+let socketIO = require('socket.io');
+let io = socketIO(server);
 
-const server = app.listen(4555, () => {
-    console.log('Magic Started on:: '+ ":" + 4555)
-})
-const io = socketIO(server, {
-    pingInterval: 2000,
-    pingTimeout: 60000
-});
+const port = process.env.PORT || 4555;
+
 io.on('connection', (socket) => {
     console.log('user connected',socket.id);
-    socket.on('disconnect', function(){
-        console.log('user disconnected');
+
+    socket.on('new-message', (message) => {
+        console.log("recived msg",message)
+        io.emit('new-message', message.msg+ Math.random());
     });
-    socket.on('message', (message) => {
-        console.log("Message Received: " + message);
-        io.emit('message', {type:'new-message', text: Math.random()});    
-    });
+});
+
+server.listen(port, () => {
+    console.log(`started on port: ${port}`);
 });
