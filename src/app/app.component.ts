@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ClientService, Message } from './client.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Observable } from 'rxjs';
+import { ClientService,Message } from './client.service';
+
 import 'rxjs/add/operator/scan'
 
 // import { scan } from 'rxjs/operators';
@@ -39,13 +40,28 @@ import 'rxjs/add/operator/scan'
   ]
 })
 export class AppComponent implements OnInit {
+  // isOpen: Boolean;
+  // isShowTime: Boolean;
+  // messages: Observable<Message[]>;
+
+  // constructor(private chat: SocketService) { }
+  // ngOnInit() {
+  //   this.isOpen = false;
+  //   this.isShowTime = false;
+  //   this.messages = this.chat.messages.asObservable().scan((acc, val) => acc.concat(val));
+  // }
+
+  // sendMessage(e) {
+  //   this.chat.sendMsg(e.target.value);
+  //   (<HTMLInputElement>document.getElementById('_58al')).value = '';
+  // }
   isOpen: Boolean;
   isShowTime: Boolean;
   messages: Observable<Message[]>;
   constructor(public clientService: ClientService) { }
 
   ngOnInit() {
-    this.isOpen = false;
+    this.isOpen = true;
     this.isShowTime = false;
     this.messages = this.clientService.conversation.asObservable().scan((acc, val) => acc.concat(val));
   }
@@ -56,6 +72,4 @@ export class AppComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('_58al')).value = '';
  
   }
-
-
 }

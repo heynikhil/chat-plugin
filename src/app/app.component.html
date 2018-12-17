@@ -75,7 +75,7 @@
         </svg></div>
     </div>
   </div>
-  <div class="chat-content" style="overflow-Y: hidden; height: 380;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <div class="chat-content" style="overflow-Y: scroll; height: 380;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div class="chat-detail">
       <div class="message-chat-box" *ngFor="let message of messages | async">
         <div class="message-box sender" [ngClass]="{'sender' : message.sentBy === 'user', 'reciver' : message.sentBy === 'admin'}">
