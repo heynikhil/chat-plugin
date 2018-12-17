@@ -23,8 +23,8 @@
   </svg>
 </div>
 
-<!-- <div class="chat-screen" [@openClose]="isOpen ? 'open' : 'closed'"> -->
-<div class="chat-screen"> 
+<div class="chat-screen" [@openClose]="isOpen ? 'open' : 'closed'">
+<!-- <div class="chat-screen">  -->
 
    <div class="_f_0">
     <div class="_1qd1" (click)="isOpen = !isOpen">
@@ -80,7 +80,7 @@
     <div class="chat-detail">
       <div class="message-chat-box" *ngFor="let message of messages">
         <div class="message-box sender" [ngClass]="{'sender' : message.sentBy === 'user', 'reciver' : message.sentBy === 'admin'}">
-          <p class="message-content" (click)="isShowTime = !isShowTime">{{message.msg}}</p>
+          <p class="message-content" (click)="isShowTime = !isShowTime">{{message.text}}</p>
           <p class="time" *ngIf="isShowTime">time</p>
         </div>
       </div>

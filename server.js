@@ -14,7 +14,7 @@ io.on('connection', (socket) => {
 
     socket.on('new-message', (message) => {
         console.log("recived msg",message)
-        io.emit('new-message', message.msg+ Math.random());
+        io.emit('new-message', message.text+ Math.random());
     });
 });
 
