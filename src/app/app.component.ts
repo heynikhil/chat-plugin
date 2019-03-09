@@ -1,10 +1,9 @@
-import { Component, OnInit, ElementRef, ViewEncapsulation } from '@angular/core';
+import { Component} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
-
 import { CookieService } from './cookie.service';
 import * as uuid from 'uuid';
-import { environment } from 'src/environments/environment';
+import { DfService } from './df.service';
 
 @Component({
   selector: 'app-root',
@@ -34,22 +33,12 @@ import { environment } from 'src/environments/environment';
   ]
 })
 export class AppComponent {
-  messageText: any
   message: string;
   messages: any = [];
   isOpen: boolean = true;
-  showTime: boolean = false;
   _sessionId: string;
-  accessToken: any;
-  constructor(private cookieService: CookieService, private http: HttpClient) {
+  constructor(private cookieService: CookieService, private http: HttpClient, private df: DfService) {
     this._sessionId = cookieService.get("sessionId");
-    this.http.get('http://localhost:3001/token').subscribe((response: any) => {
-      console.log(response);
-      this.accessToken = response.token
-    }, error => {
-      console.log(error);
-
-    })
   }
   ngOnInit() {
     if (!this.cookieService.get('sessionId')) {
@@ -71,32 +60,15 @@ export class AppComponent {
           },
         }
       };
-      await this.df_client_call(request)
       this.message = '';
+      this.df.df_client_call(request).subscribe(response => {
+        this.messages.push({
+          text: response,
+          by: 'bot',
+        })
+      })
+
     }
   }
-  async df_client_call(request) {
-    var config = {
-      headers: {
-        'Authorization': "Bearer " + this.accessToken,
-        'Content-Type': 'application/json; charset=utf-8'
-      }
-    };
-    console.log(config);
 
-    this.http.post(
-      'https://dialogflow.googleapis.com/v2/projects/' + environment.project_id +
-      '/agent/sessions/' + this.cookieService.get('sessionId') + ':detectIntent',
-      request,
-      config
-    ).subscribe((response: any) => {
-      console.log(response);
-      this.messages.push({
-        text: response.queryResult.fulfillmentText,
-        by: 'bot',
-      })
-    }, error => {
-      console.log(error);
-    })
-  }
 }
