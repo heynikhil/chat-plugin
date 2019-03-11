@@ -285,7 +285,7 @@
   }
   
   element.style {
-    color: rgb(0, 132, 255);
+    color: b3d670;
   }
   
   ._21c6 {
@@ -301,7 +301,7 @@
   }
   
   ._21c6 ._21c7 {
-    color: rgb(0, 132, 255);
+    color: b3d670;
     border: 1px solid currentColor;
     border-width: 0 0 1px 1px;
     display: block;
@@ -314,7 +314,7 @@
   }
   
   .read {
-    background: rgb(0, 132, 255);
+    background: b3d670;
     /* &._21c7 {
       color: #fff;
     } */
@@ -366,7 +366,7 @@
   }
   
   .message-box.sender {
-    background-color: #00c5b6;
+    background-color: #b3d670;
     float: right;
     border-top-right-radius: 1.3em;
     border-top-left-radius: 1.3em;
