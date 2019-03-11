@@ -26,6 +26,8 @@ export class DfService {
         'Content-Type': 'application/json; charset=utf-8'
       }
     };
+    console.log(config.headers);
+    
    return this.http.post(
       'https://dialogflow.googleapis.com/v2/projects/' + environment.project_id +
       '/agent/sessions/' + this.cookieService.get('sessionId') + ':detectIntent',
@@ -36,4 +38,5 @@ export class DfService {
     }))
   }
 
+  
 }

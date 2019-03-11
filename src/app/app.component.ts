@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from './cookie.service';
@@ -35,9 +35,11 @@ import { DfService } from './df.service';
 export class AppComponent {
   message: string;
   messages: any = [];
-  isOpen: boolean = true;
+  isOpen: boolean = false;
   _sessionId: string;
+  isOpened: boolean = false;
   constructor(private cookieService: CookieService, private http: HttpClient, private df: DfService) {
+    this.df.getToken()
     this._sessionId = cookieService.get("sessionId");
   }
   ngOnInit() {
@@ -67,8 +69,29 @@ export class AppComponent {
           by: 'bot',
         })
       })
-
     }
   }
+
+  popUpOpened() {
+    if (!this.isOpened) {
+      const request = {
+        queryInput: {
+          event: {
+            name: 'Welcome',
+            languageCode: 'en-US',
+          },
+        }
+      };
+      this.df.df_client_call(request).subscribe(response => {
+        this.messages.push({
+          text: response,
+          by: 'bot',
+        })
+        this.isOpened = true
+      })
+    }
+
+  }
+
 
 }

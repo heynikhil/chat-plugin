@@ -10,6 +10,8 @@ const config = {
 
 app.use(cors())
 app.get('/token', async (req, res) => {
+  console.log("api call");
+  
   let token = await getToken();
   res.send({ token });
 })

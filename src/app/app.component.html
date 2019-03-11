@@ -1,5 +1,6 @@
-<section class="chat">
-  <img (click)="isOpen = !isOpen" src="../assets/img/chat.png" align="chat">
+<section class="chat" style="background:#b3d670" (click)="popUpOpened()">
+
+  <img (click)="isOpen = !isOpen" src="../assets/img/robot.svg" align="chat">
 </section>
 <div class="chat-screen" [@openClose]="isOpen ? 'open' : 'closed'">
   <!-- <div class="chat-screen">  -->
@@ -56,19 +57,18 @@
         </svg></div>
     </div>
   </div>
+
   <div class="chat-content" style="overflow-Y: scroll; height: 380;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div class="chat-detail">
       <div class="message-chat-box" *ngFor="let message of messages">
         <div class="message-box sender"
           [ngClass]="{'sender' : message.by === 'user', 'reciver' : message.by === 'bot'}">
           <p class="message-content" [innerHTML]="message.text" *ngIf="message.text"></p>
-          <!-- <p class="message-content" *ngIf="message.file"> -->
-          <!-- <span [style.background-image]="message.file" style="height: 150px; width: 150px"></span> -->
-          <!-- </p> -->
         </div>
       </div>
     </div>
   </div>
+
   <div class="_336a">
     <div class="_1i69">
       <div class="_2l9u" id="fileDiv">
@@ -76,7 +76,7 @@
     </div>
     <div class="_4zbw">
       <div class="_4fwe"><label class="_58ak _3ct8">
-          <input class="_58al" id="_58al" type="text" placeholder="Type a message..." 
+          <input class="_58al" id="_58al" type="text" placeholder="Type a message..."
             (keyup.enter)="sendMessage($event)" [(ngModel)]="message">
         </label>
       </div>
@@ -88,7 +88,7 @@
         <div class="_4bqf _64mk _64ml" tabindex="0" role="button" (click)="sendMessage($event)"><svg width="22px"
             height="22px" viewBox="0 0 22 22">
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-              <g transform="translate(-5.000000, -5.000000)" fill="#0084FF">
+              <g transform="translate(-5.000000, -5.000000)" fill="#b3d670">
                 <g>
                   <g transform="translate(5.000000, 5.000000)">
                     <path
