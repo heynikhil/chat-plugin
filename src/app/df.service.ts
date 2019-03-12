@@ -14,7 +14,7 @@ export class DfService {
   }
 
   public getToken() {
-    this.http.get('http://localhost:3001/token').subscribe((response: any) => {
+    this.http.get('http://18.217.4.241:3001/token').subscribe((response: any) => {
       this.accessToken = response.token
     })
   }
