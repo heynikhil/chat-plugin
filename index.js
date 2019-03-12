@@ -37,6 +37,6 @@ const getToken = async () => {
 }
 
 app.listen(3001,()=>{
-  console.log("Magic...Magic on 1337");
+  console.log("Magic...Magic on 3001");
   
 });
