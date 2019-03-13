@@ -65,6 +65,11 @@
           [ngClass]="{'sender' : message.by === 'user', 'reciver' : message.by === 'bot'}">
           <p class="message-content" [innerHTML]="message.text" *ngIf="message.text"></p>
         </div>
+        <!-- <div *ngIf="message.chips"> -->
+          <div class="chip chip-pointer" *ngFor="let chip of message.chips" (click)="chipsClicked(chip.payload)">
+            {{chip.title}}
+          </div>
+        <!-- </div> -->
       </div>
     </div>
   </div>

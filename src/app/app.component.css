@@ -1,3 +1,7 @@
+.chip-pointer {
+  cursor: pointer;
+}
+
 .chat {
     cursor: pointer;
     background: none;

@@ -34,7 +34,7 @@ export class DfService {
       request,
       config
     ).pipe(map((response: any) => {
-      return response.queryResult.fulfillmentText
+      return response
     }))
   }
 

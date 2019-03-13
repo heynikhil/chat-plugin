@@ -38,6 +38,7 @@ export class AppComponent {
   isOpen: boolean = false;
   _sessionId: string;
   isOpened: boolean = false;
+  quickReplies: any;
   constructor(private cookieService: CookieService, private http: HttpClient, private df: DfService) {
     this.df.getToken()
     this._sessionId = cookieService.get("sessionId");
@@ -64,10 +65,22 @@ export class AppComponent {
       };
       this.message = '';
       this.df.df_client_call(request).subscribe(response => {
+        this.quickReplies = []
+        let text = response.queryResult.fulfillmentText || response.queryResult.fulfillmentMessages[0].payload.message.text
+        console.log(response.queryResult.fulfillmentMessages);
+        let payloadCheck = response.queryResult.fulfillmentMessages[0].hasOwnProperty('payload')
         this.messages.push({
-          text: response,
+          text: text,
           by: 'bot',
         })
+        if (payloadCheck) {
+          this.quickReplies = response.queryResult.fulfillmentMessages[0].payload.message.quick_replies
+          this.messages.push({
+            chips: this.quickReplies,
+            by: 'bot',
+          })
+
+        }
       })
     }
   }
@@ -84,14 +97,35 @@ export class AppComponent {
       };
       this.df.df_client_call(request).subscribe(response => {
         this.messages.push({
-          text: response,
+          text: response.queryResult.fulfillmentText,
           by: 'bot',
         })
         this.isOpened = true
       })
     }
-
   }
 
+  chipsClicked(message) {
+    this.messages.push({
+      text: message,
+      by: 'user',
+    })
+
+    const request = {
+      queryInput: {
+        text: {
+          text: message,
+          languageCode: 'en-US',
+        },
+      }
+    };
+    this.df.df_client_call(request).subscribe(response => {
+      this.messages.push({
+        text: response.queryResult.fulfillmentText,
+        by: 'bot',
+      })
+      this.isOpened = true
+    })
+  }
 
 }
