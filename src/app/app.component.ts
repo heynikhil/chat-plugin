@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from './cookie.service';
 import * as uuid from 'uuid';
-import { DfService } from './df.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AppState } from './app.state'
 import { Message } from './models/message.model'
 import * as messagesAction from './actions/message.actions';
+declare const M: any;
+declare const options: any;
+
 
 @Component({
   selector: 'app-root',
@@ -43,6 +45,8 @@ export class AppComponent {
   public messages$: Observable<Message[]>;
   public _sessionId: string;
   public isOpened: boolean = false
+  public scrolltop: number = null;
+  @ViewChild('scrollMe') scrollDiv: ElementRef;
 
   constructor(
     private cookieService: CookieService,
@@ -65,6 +69,7 @@ export class AppComponent {
   }
 
   public sendMessage(message: string) {
+    this.scrollToBottom();
     let payload = {
       text: this.message,
       by: 'user',
@@ -75,6 +80,7 @@ export class AppComponent {
 
   public popUpOpened() {
     if (!this.isOpened) {
+      this.scrollToBottom();
       let payload = {
         event: "Welcome",
         by: 'user',
@@ -85,7 +91,8 @@ export class AppComponent {
   }
 
   public chipsClicked(message) {
-    this.messages$.subscribe(messages=>{
+    this.scrollToBottom();
+    this.messages$.subscribe(messages => {
       messages[messages.length - 1].chips = []
     })
     let payload = {
@@ -95,4 +102,13 @@ export class AppComponent {
     this.store.dispatch(new messagesAction.sendMessage(payload))
   }
 
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.scrollDiv.nativeElement.scrollTop = this.scrollDiv.nativeElement.scrollHeight;
+    } catch (err) { }
+  }
 }

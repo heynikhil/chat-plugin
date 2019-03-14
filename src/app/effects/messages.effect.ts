@@ -6,14 +6,6 @@ import { DfService } from '../df.service';
 import { receivedTextMessage, MessageActionTypes } from '../actions/message.actions';
 
 
-//     const request = {
-//       queryInput: {
-//         event: {
-//           name: 'Welcome',
-//           languageCode: 'en-US',
-//         },
-//       }
-//     };
 @Injectable()
 export class MessageEffect {
 
@@ -32,13 +24,20 @@ export class MessageEffect {
         )),
         map((response: any) => {
             let data: any = {
-                text: response.queryResult.fulfillmentText ||  response.queryResult.fulfillmentMessages[0].payload.message.text,
+                text: response.queryResult.fulfillmentText || response.queryResult.fulfillmentMessages[0].payload.message.text,
                 by: 'bot'
             }
             let payloadCheck = response.queryResult.fulfillmentMessages[0].hasOwnProperty('payload')
             let chipsCheck = payloadCheck && response.queryResult.fulfillmentMessages[0].payload.message.quick_replies ? true : false
+            let imageCheck = payloadCheck && response.queryResult.fulfillmentMessages[0].payload.message.images ? true : false
+            let audioCheck = payloadCheck && response.queryResult.fulfillmentMessages[0].payload.message.audios ? true : false
+            let videoCheck = payloadCheck && response.queryResult.fulfillmentMessages[0].payload.message.videos ? true : false
+            let basic_cardsCheck = payloadCheck && response.queryResult.fulfillmentMessages[0].payload.message.basic_cards ? true : false
             if (chipsCheck) data.chips = response.queryResult.fulfillmentMessages[0].payload.message.quick_replies
-
+            if (imageCheck) data.images = response.queryResult.fulfillmentMessages[0].payload.message.images
+            if (audioCheck) data.audios = response.queryResult.fulfillmentMessages[0].payload.message.audios
+            if (videoCheck) data.videos = response.queryResult.fulfillmentMessages[0].payload.message.videos
+            if (basic_cardsCheck) data.basic_cards = response.queryResult.fulfillmentMessages[0].payload.message.basic_cards
             return (new receivedTextMessage(data))
         }),
         catchError(() => EMPTY)
@@ -59,7 +58,7 @@ export class MessageEffect {
         )),
         map((response: any) => {
             let data: any = {
-                text: response.queryResult.fulfillmentText ||  response.queryResult.fulfillmentMessages[0].payload.messagetext,
+                text: response.queryResult.fulfillmentText || response.queryResult.fulfillmentMessages[0].payload.messagetext,
                 by: 'bot'
             }
             let payloadCheck = response.queryResult.fulfillmentMessages[0].hasOwnProperty('payload')

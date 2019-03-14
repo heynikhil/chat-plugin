@@ -1,9 +1,8 @@
 <section class="chat" style="background:#b3d670" (click)="popUpOpened()">
 
-  <img (click)="isOpen = !isOpen" src="../assets/img/robot.svg" align="chat">
+  <img (click)="isOpen = !isOpen" src="../assets/img/nikhil.jpeg" align="chat" width="60px">
 </section>
 <div class="chat-screen" [@openClose]="isOpen ? 'open' : 'closed'">
-  <!-- <div class="chat-screen">  -->
 
   <div class="_f_0">
     <div class="_1qd1" (click)="isOpen = !isOpen">
@@ -58,22 +57,58 @@
     </div>
   </div>
 
-  <div class="chat-content" style="overflow-Y: scroll; height: 380;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <div class="chat-content" style="overflow-Y: scroll; height: 380;" #scrollMe>
     <div class="chat-detail">
       <div class="message-chat-box" *ngFor="let message of messages$ | async">
-        <div class="message-box sender" [ngClass]="{'sender' : message.by === 'user', 'reciver' : message.by === 'bot'}">
+        <div class="message-box sender"
+          [ngClass]="{'sender' : message.by === 'user', 'reciver' : message.by === 'bot'}">
           <p class="message-content" [innerHTML]="message.text" *ngIf="message.text"></p>
         </div>
-        <!-- <div *ngIf="message.chips"> -->
+
         <div class="chip chip-pointer" *ngFor="let chip of message.chips" (click)="chipsClicked(chip.payload)">
           {{chip.title}}
         </div>
-        <!-- </div> -->
+
+        <div *ngFor="let image of message.images">
+          <img src="{{image}}" alt="image" height="200px">
+        </div>
+
+        <div *ngFor="let audio of message.audios">
+          <audio controls>
+            <source src="{{audio}}" type="audio/mpeg">
+          </audio>
+        </div>
+
+        <div *ngFor="let video of message.videos">
+          <video width="250" controls>
+            <source src="{{video}}" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+
+        <div class="row" *ngFor="let card of message.basic_cards">
+          <div class="col s8 m7 custome-card">
+            <div class="card">
+              <div class="card-image">
+                <img src="{{card.imageUrl}}">
+                <span class="card-title">{{card.title}}</span>
+              </div>
+              <div class="card-content">
+                <p>{{card.content}}</p>
+              </div>
+              <div class="card-action" *ngFor="let button of card.buttons">
+                <a href="{{button.payload}}" target="_blank">{{button.title}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
 
-  <div class="_336a">
+  <div class=" _336a">
     <div class="_1i69">
       <div class="_2l9u" id="fileDiv">
       </div>
