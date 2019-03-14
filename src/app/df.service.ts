@@ -25,17 +25,13 @@ export class DfService {
         'Authorization': "Bearer " + this.accessToken,
         'Content-Type': 'application/json; charset=utf-8'
       }
-    };
-    console.log(config.headers);
-    
+    };   
    return this.http.post(
       'https://dialogflow.googleapis.com/v2/projects/' + environment.project_id +
       '/agent/sessions/' + this.cookieService.get('sessionId') + ':detectIntent',
       request,
       config
-    ).pipe(map((response: any) => {
-      return response
-    }))
+    )
   }
 
   

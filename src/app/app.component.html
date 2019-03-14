@@ -60,15 +60,14 @@
 
   <div class="chat-content" style="overflow-Y: scroll; height: 380;" #scrollMe [scrollTop]="scrollMe.scrollHeight">
     <div class="chat-detail">
-      <div class="message-chat-box" *ngFor="let message of messages">
-        <div class="message-box sender"
-          [ngClass]="{'sender' : message.by === 'user', 'reciver' : message.by === 'bot'}">
+      <div class="message-chat-box" *ngFor="let message of messages$ | async">
+        <div class="message-box sender" [ngClass]="{'sender' : message.by === 'user', 'reciver' : message.by === 'bot'}">
           <p class="message-content" [innerHTML]="message.text" *ngIf="message.text"></p>
         </div>
         <!-- <div *ngIf="message.chips"> -->
-          <div class="chip chip-pointer" *ngFor="let chip of message.chips" (click)="chipsClicked(chip.payload)">
-            {{chip.title}}
-          </div>
+        <div class="chip chip-pointer" *ngFor="let chip of message.chips" (click)="chipsClicked(chip.payload)">
+          {{chip.title}}
+        </div>
         <!-- </div> -->
       </div>
     </div>
@@ -82,7 +81,7 @@
     <div class="_4zbw">
       <div class="_4fwe"><label class="_58ak _3ct8">
           <input class="_58al" id="_58al" type="text" placeholder="Type a message..."
-            (keyup.enter)="sendMessage($event)" [(ngModel)]="message">
+            (keyup.enter)="sendMessage(message)" [(ngModel)]="message">
         </label>
       </div>
       <div class="_kmd">
@@ -90,7 +89,7 @@
           <input accept="application/msword, application/pdf, text/csv, text/plain, image/*, video/*" class="_2ez6"
             name="attachment[]" title="Add Files" type="file" id="fileUp" multiple>
         </div>
-        <div class="_4bqf _64mk _64ml" tabindex="0" role="button" (click)="sendMessage($event)"><svg width="22px"
+        <div class="_4bqf _64mk _64ml" tabindex="0" role="button" (click)="sendMessage(message)"><svg width="22px"
             height="22px" viewBox="0 0 22 22">
             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
               <g transform="translate(-5.000000, -5.000000)" fill="#b3d670">
