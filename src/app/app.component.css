@@ -294,7 +294,7 @@ body {
   }
   
   element.style {
-    color: b3d670;
+    color: #0078FF ;
   }
   
   ._21c6 {
@@ -310,7 +310,7 @@ body {
   }
   
   ._21c6 ._21c7 {
-    color: b3d670;
+    color: #0078FF ;
     border: 1px solid currentColor;
     border-width: 0 0 1px 1px;
     display: block;
@@ -323,7 +323,7 @@ body {
   }
   
   .read {
-    background: b3d670;
+    background: #0078FF ;
     /* &._21c7 {
       color: #fff;
     } */
@@ -362,8 +362,8 @@ body {
   .message-box.reciver p {
     word-wrap: break-word;
     text-align: left;
-    font-size: 12pt;
-    padding: 0px 10px 0px 10px;
+    font-size: 10pt;
+    padding: 0px 10px 0px 15px;
     }
   
   .message-box.reciver p {
@@ -375,7 +375,7 @@ body {
   }
   
   .message-box.sender {
-    background-color: #b3d670;
+    background-color: #0078FF ;
     float: right;
     border-top-right-radius: 1.3em;
     border-top-left-radius: 1.3em;

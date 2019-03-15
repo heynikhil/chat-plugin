@@ -56,7 +56,6 @@ export class AppComponent {
     this.messages$ = store.select('messages')
   }
 
-
   ngOnInit() {
     if (!this.cookieService.get('sessionId')) {
       this.cookieService.set('sessionId', uuid.v4());
@@ -91,10 +90,11 @@ export class AppComponent {
   }
 
   public chipsClicked(message) {
+    console.log("messages", message);
     this.scrollToBottom();
     this.messages$.subscribe(messages => {
       messages[messages.length - 1].chips = []
-    })
+    }).unsubscribe()
     let payload = {
       text: message,
       by: 'user',

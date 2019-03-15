@@ -1,4 +1,4 @@
-<section class="chat" style="background:#b3d670" (click)="popUpOpened()">
+<section class="chat" style="background:#0078FF" (click)="popUpOpened()">
 
   <img (click)="isOpen = !isOpen" src="../assets/img/nikhil.jpeg" align="chat" width="60px">
 </section>
@@ -64,13 +64,18 @@
           [ngClass]="{'sender' : message.by === 'user', 'reciver' : message.by === 'bot'}">
           <p class="message-content" [innerHTML]="message.text" *ngIf="message.text"></p>
         </div>
-
-        <div class="chip chip-pointer" *ngFor="let chip of message.chips" (click)="chipsClicked(chip.payload)">
-          {{chip.title}}
-        </div>
+        <mat-chip-list *ngIf="message.chips && message.chips.length > 0">
+          <mat-chip color="accent" selected class="chip-pointer" *ngFor="let chip of message.chips"
+            (click)="chipsClicked(chip.payload)">{{chip.title}}</mat-chip>
+        </mat-chip-list>
+        <!-- <div> -->
+        <!-- <div class="chip chip-pointer" >
+            
+          </div> -->
+        <!-- </div> -->
 
         <div *ngFor="let image of message.images">
-          <img src="{{image}}" alt="image" height="200px">
+          <img class="img-radius" src="{{image}}" alt="image" width="200px" height="auto">
         </div>
 
         <div *ngFor="let audio of message.audios">
@@ -80,13 +85,13 @@
         </div>
 
         <div *ngFor="let video of message.videos">
-          <video width="250" controls>
+          <video width="250" controls class="img-radius">
             <source src="{{video}}" type="video/mp4">
             Your browser does not support HTML5 video.
           </video>
         </div>
 
-        <div class="row" *ngFor="let card of message.basic_cards">
+        <!-- <div class="row" *ngFor="let card of message.basic_cards">
           <div class="col s8 m7 custome-card">
             <div class="card">
               <div class="card-image">
@@ -101,8 +106,23 @@
               </div>
             </div>
           </div>
-        </div>
-
+        </div> -->
+        <mat-card class="example-card" *ngFor="let card of message.basic_cards" style="width:260px">
+          <!-- <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+            </mat-card-header> -->
+          <img mat-card-image src="{{card.imageUrl}}" alt="Photo of a Shiba Inu">
+          <mat-card-content>
+            <p>{{card.content}}</p>
+          </mat-card-content> 
+          <mat-card-actions >
+            <a mat-button color="primary" *ngFor="let button of card.buttons" href="{{button.payload}}" target="_blank">{{button.title}}</a>  
+            <!-- <button mat-button>{{button.payload}}</button> -->
+            <!-- <button mat-button>{{button.payload}}</button> -->
+          </mat-card-actions>
+        </mat-card>
 
       </div>
     </div>

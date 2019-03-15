@@ -12,11 +12,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { MessageEffect } from './effects/messages.effect';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    MatButtonModule,
+    MatCardModule,
+    MatChipsModule,
     HttpClientModule,
     FormsModule,
     BrowserModule,
