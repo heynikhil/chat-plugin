@@ -26,6 +26,7 @@
     "@ngrx/store-devtools": "^7.3.0",
     "core-js": "^2.5.4",
     "cors": "^2.8.5",
+    "dialogflow": "^0.8.2",
     "express": "^4.16.4",
     "google-oauth-jwt": "^0.2.0",
     "hammerjs": "^2.0.8",

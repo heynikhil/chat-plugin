@@ -1,13 +1,4 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
-export const environment = {
-  socket: {
-    baseUrl: 'http://localhost:3001/customer',
-    config: {}
-  },
-  production: false,
+{
   "type": "service_account",
   "project_id": "esoteric-accord-232906",
   "private_key_id": "c5073d409ca67cb9835e323c0fb295e28197ff9c",
@@ -19,13 +10,3 @@ export const environment = {
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflow-gpwnqn%40esoteric-accord-232906.iam.gserviceaccount.com"
 }
-
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.
