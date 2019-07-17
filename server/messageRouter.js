@@ -62,7 +62,7 @@ class MessageRouter {
 
   // Notifies all operators of a customer's connection changing
   _sendConnectionStatusToOperator (customerId, disconnected) {
-    console.log('Sending customer id to any operators');
+    console.log('Sending customer id to any operators',customerId);
     const status = disconnected
       ? AppConstants.EVENT_CUSTOMER_DISCONNECTED
       : AppConstants.EVENT_CUSTOMER_CONNECTED;

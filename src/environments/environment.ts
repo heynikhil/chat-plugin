@@ -4,7 +4,7 @@
 
 export const environment = {
   socket: {
-    baseUrl: 'http://localhost:3001/customer',
+    baseUrl: 'http://192.168.11.110:8001/customer',
     config: {}
   },
   production: false,

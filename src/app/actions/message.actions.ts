@@ -1,5 +1,4 @@
 import { Action } from "@ngrx/store";
-import { Injectable } from '@angular/core';
 import { Message } from '../models/message.model'
 
 export enum MessageActionTypes {

@@ -13,13 +13,15 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { MessageEffect } from './effects/messages.effect';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatCardModule} from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
-import { SocketService } from './socket.service';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { PopRootComponent } from './pop-root/pop-root.component';
+// import { SocketService } from './socket.service';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PopRootComponent
   ],
   imports: [
     MatButtonModule,
@@ -36,7 +38,7 @@ import { SocketService } from './socket.service';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([MessageEffect])
   ],
-  providers: [CookieService,SocketService],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

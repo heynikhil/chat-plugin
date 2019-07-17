@@ -16,17 +16,23 @@ const ChatConnectionHandler = require('./chatConnectionHandler.js');
 
 // Handles the connection to an individual customer
 class CustomerConnectionHandler extends ChatConnectionHandler {
-  constructor (socket, messageRouter, onDisconnect) {
+  constructor(socket, messageRouter, onDisconnect) {
     super(socket, messageRouter, onDisconnect);
     // In this sample, we use the socket's unique id as a customer id.
     this.init(socket.id);
     this.attachHandlers();
   }
 
-  init (customerId) {
+  init(customerId) {
     console.log('A customer joined: ', this.socket.id);
-    this.router._sendConnectionStatusToOperator(customerId)
-    // Determine if this is a new or known customer
+    let data = {
+      id: customerId,
+      avatar: "https://api.adorable.io/avatars/256/abott@adorable.png",
+      name: "Customer",
+      mood: "AGNET"
+    }
+    this.router._sendConnectionStatusToOperator(data)
+      // Determine if this is a new or known customer
       .then(() => this.router.customerStore.getOrCreateCustomer(customerId))
       .then(customer => {
         console.log('A customer connected: ', customer);
@@ -48,7 +54,7 @@ class CustomerConnectionHandler extends ChatConnectionHandler {
       });
   }
 
-  attachHandlers () {
+  attachHandlers() {
     this.socket.on(AppConstants.EVENT_CUSTOMER_MESSAGE, (message) => {
       console.log('Received customer message: ', message);
       this._gotCustomerInput(message);
@@ -61,7 +67,7 @@ class CustomerConnectionHandler extends ChatConnectionHandler {
   }
 
   // Called on receipt of input from the customer
-  _gotCustomerInput (utterance) {
+  _gotCustomerInput(utterance) {
     // Look up this customer
     this.router.customerStore
       .getOrCreateCustomer(this.socket.id)
@@ -84,7 +90,7 @@ class CustomerConnectionHandler extends ChatConnectionHandler {
   }
 
   // Send a message or an array of messages to the customer
-  _respondToCustomer (response) {
+  _respondToCustomer(response) {
     console.log('Sending response to customer:', response);
     if (Array.isArray(response)) {
       response.forEach(message => {
@@ -98,7 +104,7 @@ class CustomerConnectionHandler extends ChatConnectionHandler {
     return Promise.resolve();
   }
 
-  _sendErrorToCustomer () {
+  _sendErrorToCustomer() {
     // Immediately notifies customer of error
     console.log('Sending error to customer');
     this.socket.emit(AppConstants.EVENT_SYSTEM_ERROR, {
